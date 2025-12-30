@@ -309,14 +309,21 @@
           }
           setDeferredPrompt(null);
         } else {
-          // Show manual instructions
-          setInstallModal(true);
+          // Direct instructions based on device
+          const ua = navigator.userAgent.toLowerCase();
+          if (ua.includes('android')) {
+            showToast('Tap ⋮ menu (top right) → "Install app" or "Add to Home screen"', 6000);
+          } else if (ua.includes('iphone') || ua.includes('ipad')) {
+            showToast('Open in Safari → Tap Share ⬆ → "Add to Home Screen"', 6000);
+          } else {
+            showToast('Click ⋮ menu → "Install app"', 6000);
+          }
         }
       };
 
-      const showToast = (msg) => {
+      const showToast = (msg, duration = 3000) => {
         setToast(msg);
-        setTimeout(() => setToast(null), 3000);
+        setTimeout(() => setToast(null), duration);
       };
 
       const scheduleSheetSync = useCallback(() => {
