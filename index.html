@@ -10,12 +10,9 @@
   
   <title>Unit E Ward Rounds</title>
   
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="icon-192.svg" />
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="icon-192.svg" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" href="./icon-192.svg" />
+  <link rel="icon" type="image/svg+xml" href="./icon-192.svg" />
 
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -33,7 +30,6 @@
       margin: 0; 
       padding: 0;
       overscroll-behavior: none;
-      -webkit-overflow-scrolling: touch;
     }
     
     body{ 
@@ -41,9 +37,7 @@
       background: var(--bg); 
       color: var(--text); 
       padding-bottom: env(safe-area-inset-bottom, 20px);
-      padding-top: env(safe-area-inset-top, 0);
       min-height: 100vh;
-      min-height: -webkit-fill-available;
     }
     
     .wrap{ max-width: 1200px; margin: 0 auto; padding: 10px; padding-bottom: 100px; }
@@ -52,7 +46,6 @@
       background: var(--green); 
       color: white; 
       padding: 12px 16px; 
-      padding-top: calc(12px + env(safe-area-inset-top, 0));
       border-radius: 0 0 12px 12px; 
       display: flex; 
       justify-content: space-between; 
@@ -81,16 +74,16 @@
       gap: 6px; 
       transition: 0.1s; 
       box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-      -webkit-user-select: none;
-      user-select: none;
     }
     .btn:active{ transform: translateY(1px); opacity: 0.9; }
     .btn-white{ background: white; color: var(--green); }
     .btn-blue{ background: #dbeafe; color: var(--blue); }
     .btn-red{ background: #fee2e2; color: #dc2626; }
+    .btn-download{ background: #fef08a; color: #854d0e; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{ box-shadow: 0 0 0 0 rgba(254,240,138,0.7); } 50%{ box-shadow: 0 0 0 8px rgba(254,240,138,0); } }
 
     .controls-container { background: white; padding: 12px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 20px; }
-    .filter-row { display: flex; gap: 8px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+    .filter-row { display: flex; gap: 8px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 4px; }
     .filter-btn { 
       padding: 6px 12px; 
       border-radius: 20px; 
@@ -144,7 +137,6 @@
       font-weight: 600; 
       cursor: pointer;
       -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 6px center;
       padding-right: 24px;
@@ -171,7 +163,7 @@
     .modalOverlay{ position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 15px; }
     .modal{ background: white; width: 100%; max-width: 450px; border-radius: 12px; display: flex; flex-direction: column; max-height: 90vh; overflow: hidden; }
     .modal-head{ background: var(--green); padding: 14px; color: white; font-weight: bold; }
-    .modal-body{ padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; -webkit-overflow-scrolling: touch; }
+    .modal-body{ padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
     .modal-foot{ display: flex; justify-content: flex-end; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--border); background: #fff; }
     .form-group label{ font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 4px; display: block; }
 
@@ -182,7 +174,7 @@
 
     .toast { 
       position: fixed; 
-      bottom: calc(20px + env(safe-area-inset-bottom, 0)); 
+      bottom: 20px; 
       left: 50%; 
       transform: translateX(-50%); 
       background: #1e293b; 
@@ -197,27 +189,21 @@
     }
     @keyframes fadeIn { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 
-    .install-banner {
-      background: linear-gradient(135deg, #15803d 0%, #166534 100%);
-      color: white;
-      padding: 12px 16px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-    .install-banner p { margin: 0; font-size: 13px; }
-    .install-banner button { background: white; color: var(--green); border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; }
-    .install-banner .close { background: transparent; color: white; padding: 4px 8px; font-size: 18px; }
+    .install-modal { text-align: center; }
+    .install-modal h2 { margin: 0 0 10px 0; }
+    .install-modal p { color: #64748b; margin: 0 0 15px 0; font-size: 14px; }
+    .install-modal .steps { text-align: left; background: #f8fafc; padding: 12px; border-radius: 8px; margin: 15px 0; }
+    .install-modal .steps p { margin: 8px 0; font-size: 13px; }
+    .install-modal .device-tabs { display: flex; gap: 8px; margin-bottom: 15px; }
+    .install-modal .device-tab { flex: 1; padding: 8px; border: 1px solid var(--border); border-radius: 6px; background: #f8fafc; cursor: pointer; font-size: 12px; }
+    .install-modal .device-tab.active { background: var(--green); color: white; border-color: var(--green); }
 
     @media(min-width: 768px){
       .p-card{ flex-direction: row; align-items: flex-start; gap: 14px; }
       .col-1{ width: 130px; display: flex; flex-direction: column; gap: 6px; }
       .col-2{ flex: 1; display: flex; flex-direction: column; gap: 6px; }
       .col-3{ width: 280px; display: flex; flex-direction: column; gap: 6px; }
-      .topbar { border-radius: 12px; margin: 10px; margin-bottom: 10px; position: relative; }
+      .topbar { border-radius: 12px; margin: 10px; }
     }
     @media(max-width: 767px){ 
       .mobile-row{ display: flex; gap: 8px; } 
@@ -263,44 +249,43 @@
       return s.match(/^\d{4}-\d{2}-\d{2}/) || 
              s.match(/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s/i) ||
              s.match(/^\d{13,}$/) ||
-             s.match(/T\d{2}:\d{2}/) ||
-             s.match(/\d{4}\s\d{2}:\d{2}:\d{2}/);
+             s.match(/T\d{2}:\d{2}/);
     };
 
-    const cleanBed = (val) => {
-      if (isTimestamp(val)) return "";
-      return String(val || "").trim();
-    };
-
-    const makeKey = (ward, name) => {
-      return `${(ward || "").toLowerCase().trim()}|${(name || "").toLowerCase().trim()}`;
-    };
+    const cleanBed = (val) => isTimestamp(val) ? "" : String(val || "").trim();
+    const makeKey = (ward, name) => `${(ward || "").toLowerCase().trim()}|${(name || "").toLowerCase().trim()}`;
 
     const App = () => {
       const [patients, setPatients] = useState([]);
       const [search, setSearch] = useState("");
       const [viewFilter, setViewFilter] = useState("All");
       const [addModal, setAddModal] = useState(false);
+      const [installModal, setInstallModal] = useState(false);
       const [newP, setNewP] = useState({ ward: "Ward 19", bed: "", name: "", diagnosis: "", doctor: "", plan: "", status: "New", mrn: "" });
       const [collapsedWards, setCollapsedWards] = useState({});
       const [syncing, setSyncing] = useState(false);
       const [online, setOnline] = useState(navigator.onLine);
       const [toast, setToast] = useState(null);
-      const [showInstall, setShowInstall] = useState(false);
       const [deferredPrompt, setDeferredPrompt] = useState(null);
+      const [isInstalled, setIsInstalled] = useState(false);
+      const [deviceTab, setDeviceTab] = useState('android');
 
       const syncTimer = useRef(null);
 
-      // Online/offline detection
+      // Check if already installed
       useEffect(() => {
-        const handleOnline = () => setOnline(true);
-        const handleOffline = () => setOnline(false);
-        window.addEventListener('online', handleOnline);
-        window.addEventListener('offline', handleOffline);
-        return () => {
-          window.removeEventListener('online', handleOnline);
-          window.removeEventListener('offline', handleOffline);
-        };
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+          setIsInstalled(true);
+        }
+      }, []);
+
+      // Online/offline
+      useEffect(() => {
+        const on = () => setOnline(true);
+        const off = () => setOnline(false);
+        window.addEventListener('online', on);
+        window.addEventListener('offline', off);
+        return () => { window.removeEventListener('online', on); window.removeEventListener('offline', off); };
       }, []);
 
       // PWA install prompt
@@ -308,24 +293,25 @@
         const handler = (e) => {
           e.preventDefault();
           setDeferredPrompt(e);
-          // Show install banner if not already installed
-          if (!window.matchMedia('(display-mode: standalone)').matches) {
-            setShowInstall(true);
-          }
         };
         window.addEventListener('beforeinstallprompt', handler);
         return () => window.removeEventListener('beforeinstallprompt', handler);
       }, []);
 
-      const installApp = async () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          showToast('✓ App installed!');
+      const handleInstallClick = async () => {
+        if (deferredPrompt) {
+          // Chrome/Android - use native prompt
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            showToast('✓ App installed!');
+            setIsInstalled(true);
+          }
+          setDeferredPrompt(null);
+        } else {
+          // Show manual instructions
+          setInstallModal(true);
         }
-        setDeferredPrompt(null);
-        setShowInstall(false);
       };
 
       const showToast = (msg) => {
@@ -365,37 +351,25 @@
         if (field === 'name') {
           const patient = patients.find(p => p.id === id);
           if (patient && isDuplicate(patient.ward, value, id)) {
-            showToast("⚠️ Duplicate name in ward");
+            showToast("⚠️ Duplicate name");
             return;
           }
         }
-        
         if (field === 'ward') {
           const patient = patients.find(p => p.id === id);
           if (patient && isDuplicate(value, patient.name, id)) {
-            showToast("⚠️ Patient exists in target ward");
+            showToast("⚠️ Patient exists in ward");
             return;
           }
         }
+        if (field === 'bed') value = cleanBed(value);
 
-        if (field === 'bed') {
-          value = cleanBed(value);
-        }
-
-        db.ref(`patients/${id}`).update({
-          [field]: value,
-          timestamp: Date.now()
-        }).then(() => {
-          scheduleSheetSync();
-        });
+        db.ref(`patients/${id}`).update({ [field]: value, timestamp: Date.now() }).then(() => scheduleSheetSync());
       }, [patients, scheduleSheetSync]);
 
       const del = (id) => {
-        if (!confirm("Delete this patient?")) return;
-        db.ref(`patients/${id}`).remove().then(() => {
-          showToast("✓ Deleted");
-          pingSheets();
-        });
+        if (!confirm("Delete?")) return;
+        db.ref(`patients/${id}`).remove().then(() => { showToast("✓ Deleted"); pingSheets(); });
       };
 
       const toggleWard = (ward) => setCollapsedWards(prev => ({ ...prev, [ward]: !prev[ward] }));
@@ -412,16 +386,8 @@
           mrn: (newP.mrn || "").trim(),
           timestamp: Date.now()
         };
-
-        if (!cleaned.name) {
-          alert("Please enter patient name.");
-          return;
-        }
-
-        if (isDuplicate(cleaned.ward, cleaned.name)) {
-          alert("⚠️ Patient already exists in " + cleaned.ward);
-          return;
-        }
+        if (!cleaned.name) { alert("Enter patient name"); return; }
+        if (isDuplicate(cleaned.ward, cleaned.name)) { alert("⚠️ Patient exists"); return; }
 
         db.ref("patients").push(cleaned).then(() => {
           setAddModal(false);
@@ -432,33 +398,22 @@
       };
 
       const cleanupDuplicates = async () => {
-        if (!confirm("Remove duplicate patients?")) return;
-        
+        if (!confirm("Remove duplicates?")) return;
         setSyncing(true);
         const byKey = {};
         const toDelete = [];
-
         patients.forEach(p => {
           const key = makeKey(p.ward, p.name);
-          if (!byKey[key]) {
-            byKey[key] = p;
-          } else {
-            const existingTs = Number(byKey[key].timestamp || 0);
-            const newTs = Number(p.timestamp || 0);
-            if (newTs > existingTs) {
+          if (!byKey[key]) { byKey[key] = p; }
+          else {
+            if (Number(p.timestamp || 0) > Number(byKey[key].timestamp || 0)) {
               toDelete.push(byKey[key].id);
               byKey[key] = p;
-            } else {
-              toDelete.push(p.id);
-            }
+            } else { toDelete.push(p.id); }
           }
         });
-
-        for (const id of toDelete) {
-          await db.ref(`patients/${id}`).remove();
-        }
-
-        showToast(`✓ Removed ${toDelete.length} duplicates`);
+        for (const id of toDelete) { await db.ref(`patients/${id}`).remove(); }
+        showToast(`✓ Removed ${toDelete.length}`);
         pingSheets();
         setSyncing(false);
       };
@@ -472,20 +427,14 @@
 
       const exportExcel = () => {
         const wb = XLSX.utils.book_new();
-        const wsData = [
-          ["UNIT E ROUNDS - " + new Date().toLocaleDateString()],
-          [],
-          ["WARD", "BED", "NAME", "MRN", "DIAGNOSIS", "DOCTOR", "STATUS", "PLAN"]
-        ];
+        const wsData = [["UNIT E - " + new Date().toLocaleDateString()], [], ["WARD", "BED", "NAME", "MRN", "DIAGNOSIS", "DOCTOR", "STATUS", "PLAN"]];
         groups.sortedKeys.forEach(ward => {
           wsData.push([ward.toUpperCase()]);
-          groups.g[ward].forEach(p => {
-            wsData.push([p.ward, cleanBed(p.bed), p.name, p.mrn || "", p.diagnosis, p.doctor, p.status || "-", p.plan]);
-          });
+          groups.g[ward].forEach(p => wsData.push([p.ward, cleanBed(p.bed), p.name, p.mrn || "", p.diagnosis, p.doctor, p.status || "-", p.plan]));
           wsData.push([]);
         });
         const ws = XLSX.utils.aoa_to_sheet(wsData);
-        ws['!cols'] = [{ wch: 12 }, { wch: 8 }, { wch: 20 }, { wch: 10 }, { wch: 25 }, { wch: 12 }, { wch: 12 }, { wch: 40 }];
+        ws['!cols'] = [{wch:12},{wch:8},{wch:20},{wch:10},{wch:25},{wch:12},{wch:12},{wch:40}];
         XLSX.utils.book_append_sheet(wb, ws, "Rounds");
         XLSX.writeFile(wb, "UnitE_" + new Date().toISOString().split('T')[0] + ".xlsx");
         showToast("✓ Exported");
@@ -496,28 +445,13 @@
         let filtered = patients;
         if (viewFilter !== 'All') filtered = patients.filter(p => p.status === viewFilter);
         filtered
-          .filter(p => (String(p.name || "") + String(p.bed || "") + String(p.ward || "") + String(p.diagnosis || "")).toLowerCase().includes(search.toLowerCase()))
-          .forEach(p => {
-            let w = p.ward || "Unassigned";
-            if (!g[w]) g[w] = [];
-            g[w].push(p);
-          });
-        const sortedKeys = Object.keys(g).sort((a, b) => WARD_ORDER.indexOf(a) - WARD_ORDER.indexOf(b));
-        return { g, sortedKeys, totalCount: filtered.length };
+          .filter(p => (String(p.name||"")+String(p.bed||"")+String(p.ward||"")+String(p.diagnosis||"")).toLowerCase().includes(search.toLowerCase()))
+          .forEach(p => { let w = p.ward || "Unassigned"; if (!g[w]) g[w] = []; g[w].push(p); });
+        return { g, sortedKeys: Object.keys(g).sort((a,b) => WARD_ORDER.indexOf(a) - WARD_ORDER.indexOf(b)), totalCount: filtered.length };
       }, [patients, search, viewFilter]);
 
       return (
         <div className="wrap">
-          {showInstall && (
-            <div className="install-banner">
-              <p>📱 Install app for quick access</p>
-              <div>
-                <button onClick={installApp}>Install</button>
-                <button className="close" onClick={() => setShowInstall(false)}>×</button>
-              </div>
-            </div>
-          )}
-
           <div className="topbar">
             <div className="title">
               <div className="title-row">
@@ -532,6 +466,9 @@
               <button className="btn btn-white" onClick={exportExcel}>📤</button>
               <button className="btn btn-blue" onClick={manualSync}>🔄</button>
               <button className="btn btn-red" onClick={cleanupDuplicates}>🧹</button>
+              {!isInstalled && (
+                <button className="btn btn-download" onClick={handleInstallClick}>📲 Install</button>
+              )}
             </div>
           </div>
 
@@ -568,11 +505,7 @@
                       <textarea className="inp inp-area" value={p.plan || ''} placeholder="Plan..." onChange={e => update(p.id, 'plan', e.target.value)} />
                     </div>
                     <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-                      <select
-                        className={`status-select status-${(p.status || "").toLowerCase().split('-')[0]}`}
-                        value={p.status || ""}
-                        onChange={e => update(p.id, 'status', e.target.value)}
-                      >
+                      <select className={`status-select status-${(p.status || "").toLowerCase().split('-')[0]}`} value={p.status || ""} onChange={e => update(p.id, 'status', e.target.value)}>
                         <option value="">-</option>
                         {STATUS_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}
                       </select>
@@ -584,6 +517,7 @@
             </div>
           ))}
 
+          {/* Add Patient Modal */}
           {addModal && (
             <div className="modalOverlay" onClick={(e) => e.target === e.currentTarget && setAddModal(false)}>
               <div className="modal">
@@ -596,43 +530,58 @@
                     </select>
                   </div>
                   <div style={{ display: 'flex', gap: 10 }}>
-                    <div className="form-group" style={{ flex: 1 }}>
-                      <label>Bed</label>
-                      <input className="inp" value={newP.bed} placeholder="e.g. 12-2" onChange={e => setNewP({ ...newP, bed: e.target.value })} />
-                    </div>
-                    <div className="form-group" style={{ flex: 1 }}>
-                      <label>Doctor</label>
-                      <input className="inp" value={newP.doctor} onChange={e => setNewP({ ...newP, doctor: e.target.value })} />
-                    </div>
+                    <div className="form-group" style={{ flex: 1 }}><label>Bed</label><input className="inp" value={newP.bed} placeholder="e.g. 12-2" onChange={e => setNewP({ ...newP, bed: e.target.value })} /></div>
+                    <div className="form-group" style={{ flex: 1 }}><label>Doctor</label><input className="inp" value={newP.doctor} onChange={e => setNewP({ ...newP, doctor: e.target.value })} /></div>
                   </div>
-                  <div className="form-group">
-                    <label>Name</label>
-                    <input className="inp" value={newP.name} onChange={e => setNewP({ ...newP, name: e.target.value })} />
-                  </div>
+                  <div className="form-group"><label>Name</label><input className="inp" value={newP.name} onChange={e => setNewP({ ...newP, name: e.target.value })} /></div>
                   <div style={{ display: 'flex', gap: 10 }}>
-                    <div className="form-group" style={{ flex: 1 }}>
-                      <label>MRN</label>
-                      <input className="inp" value={newP.mrn} onChange={e => setNewP({ ...newP, mrn: e.target.value })} />
-                    </div>
-                    <div className="form-group" style={{ flex: 1 }}>
-                      <label>Status</label>
-                      <select className="inp" value={newP.status} onChange={e => setNewP({ ...newP, status: e.target.value })}>
-                        {STATUS_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}
-                      </select>
-                    </div>
+                    <div className="form-group" style={{ flex: 1 }}><label>MRN</label><input className="inp" value={newP.mrn} onChange={e => setNewP({ ...newP, mrn: e.target.value })} /></div>
+                    <div className="form-group" style={{ flex: 1 }}><label>Status</label><select className="inp" value={newP.status} onChange={e => setNewP({ ...newP, status: e.target.value })}>{STATUS_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}</select></div>
                   </div>
-                  <div className="form-group">
-                    <label>Diagnosis</label>
-                    <input className="inp" value={newP.diagnosis} onChange={e => setNewP({ ...newP, diagnosis: e.target.value })} />
-                  </div>
-                  <div className="form-group">
-                    <label>Plan</label>
-                    <textarea className="inp inp-area" value={newP.plan} onChange={e => setNewP({ ...newP, plan: e.target.value })} />
-                  </div>
+                  <div className="form-group"><label>Diagnosis</label><input className="inp" value={newP.diagnosis} onChange={e => setNewP({ ...newP, diagnosis: e.target.value })} /></div>
+                  <div className="form-group"><label>Plan</label><textarea className="inp inp-area" value={newP.plan} onChange={e => setNewP({ ...newP, plan: e.target.value })} /></div>
                 </div>
                 <div className="modal-foot">
                   <button className="btn btn-white" onClick={() => setAddModal(false)}>Cancel</button>
                   <button className="btn btn-blue" onClick={saveNew}>Save</button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Install Instructions Modal */}
+          {installModal && (
+            <div className="modalOverlay" onClick={(e) => e.target === e.currentTarget && setInstallModal(false)}>
+              <div className="modal">
+                <div className="modal-head">📲 Install App</div>
+                <div className="modal-body install-modal">
+                  <h2>Add to Home Screen</h2>
+                  <p>Install this app for quick access</p>
+                  
+                  <div className="device-tabs">
+                    <button className={`device-tab ${deviceTab === 'android' ? 'active' : ''}`} onClick={() => setDeviceTab('android')}>Android</button>
+                    <button className={`device-tab ${deviceTab === 'iphone' ? 'active' : ''}`} onClick={() => setDeviceTab('iphone')}>iPhone</button>
+                  </div>
+
+                  {deviceTab === 'android' && (
+                    <div className="steps">
+                      <p>1️⃣ Tap the <strong>⋮ menu</strong> (top right)</p>
+                      <p>2️⃣ Tap <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong></p>
+                      <p>3️⃣ Tap <strong>"Install"</strong></p>
+                    </div>
+                  )}
+
+                  {deviceTab === 'iphone' && (
+                    <div className="steps">
+                      <p>1️⃣ Open in <strong>Safari</strong> (required)</p>
+                      <p>2️⃣ Tap the <strong>Share</strong> button (□↑)</p>
+                      <p>3️⃣ Scroll down, tap <strong>"Add to Home Screen"</strong></p>
+                      <p>4️⃣ Tap <strong>"Add"</strong></p>
+                    </div>
+                  )}
+                </div>
+                <div className="modal-foot">
+                  <button className="btn btn-blue" onClick={() => setInstallModal(false)}>Got it</button>
                 </div>
               </div>
             </div>
@@ -647,11 +596,8 @@
   </script>
 
   <script>
-    // Register service worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then(() => console.log('SW registered'))
-        .catch(err => console.log('SW error:', err));
+      navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
     }
   </script>
 </body>
