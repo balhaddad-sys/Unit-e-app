@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>MKH Admission Triage</title>
+    <meta name="description" content="Clinical admission triage decision tool - Mubarak Al-Kabeer Hospital Internal Medicine"/>
+    <meta name="theme-color" content="#0f1729"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f1729'/><text y='68' x='50' text-anchor='middle' font-size='55' fill='%23d4af37'>T</text></svg>"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="triage-styles.css"/>
+</head>
+<body>
+    <div id="triage-root">
+        <div class="triage-loading">
+            <div class="triage-loading-spinner"></div>
+            <div class="triage-loading-text">MKH Admission Triage</div>
+        </div>
+    </div>
+    <script src="triage-config.js"></script>
+    <script type="text/babel" src="triage-app.jsx"></script>
+</body>
+</html>
